@@ -155,17 +155,13 @@ public class Main {
 		int line = Integer.parseInt(br.readLine());
 
 		// cal
-		int i;
+		int i, j, count = 0;
 		int[] nums = new int[line];
 		
 		for (i = 0; i < line; i++) {
 			nums[i] = Integer.parseInt(br.readLine());
 		}
 		Arrays.sort(nums);
-		
-		for (i = 0; i < line; i++) {
-			sb.append(nums[i]).append('\n');
-		}
 		
 		// print
 		System.out.println(sb);

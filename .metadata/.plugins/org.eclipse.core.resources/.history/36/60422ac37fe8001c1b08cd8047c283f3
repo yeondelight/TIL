@@ -1,8 +1,5 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -121,57 +118,20 @@ public class Main {
 
 		// cal
 		int i, j, count = 0;
-		boolean[] check = new boolean[line];
-		List word = new ArrayList<Character>();
+		Map word<Char> = Map<Char>();
 		
 		for (i = 0; i < line; i++) {
-			word.clear();
-			check[i] = true;
 			String words = br.readLine();
 			for (j = 0; j < words.length(); j++) {
-				char old = words.charAt(j > 0 ? j - 1 : j);
-				char now = words.charAt(j);
-				if (word.contains(now) && (old != now))
-					check[i] = false;
-				else
-					word.add(now);
+				
 			}
 		}
 		
 		// print
-		for (i = 0; i < line; i++) {
-			if (check[i])
-				count++;
-		}
 		System.out.println(count);
 	}
 
-	public void sol_2751() throws Exception {
-		// ready
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringBuilder sb = new StringBuilder();
-		
-		// scan
-		int line = Integer.parseInt(br.readLine());
-
-		// cal
-		int i;
-		int[] nums = new int[line];
-		
-		for (i = 0; i < line; i++) {
-			nums[i] = Integer.parseInt(br.readLine());
-		}
-		Arrays.sort(nums);
-		
-		for (i = 0; i < line; i++) {
-			sb.append(nums[i]).append('\n');
-		}
-		
-		// print
-		System.out.println(sb);
-	}
-	
 	public static void main(String [] args) throws Exception{
-		new Main().sol_2751();
+		new Main().sol_1316();
 	}
 }
