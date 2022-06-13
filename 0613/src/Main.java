@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Stack;
 import java.util.StringTokenizer;
 
@@ -411,7 +413,203 @@ public class Main {
 		System.out.println(sb);
 	}
 	
+	public void sol_10250() throws Exception {
+		// ready
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringBuilder sb = new StringBuilder();
+		StringTokenizer st;
+		
+		// scan
+		int t = Integer.parseInt(br.readLine());
+		
+		// cal
+		int i, h, w, n, y, x;
+		
+		for (i = 0; i < t; i++) {
+			st = new StringTokenizer(br.readLine());
+			h = Integer.parseInt(st.nextToken());
+			w = Integer.parseInt(st.nextToken());
+			n = Integer.parseInt(st.nextToken());
+			
+			y = ( n % h == 0 ) ? h : n % h;
+			x = (n - 1) / h + 1;
+			
+			sb.append(y);
+			if (x < 10)	sb.append(0);
+			sb.append(x).append('\n');
+		}
+		
+		
+		// print
+		System.out.println(sb);
+	}
+
+	public void sol_2798() throws Exception {
+		// ready
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringBuilder sb = new StringBuilder();
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		
+		// scan
+		int n = Integer.parseInt(st.nextToken());
+		int m = Integer.parseInt(st.nextToken());
+		int[] card = new int[n];
+		
+		// cal
+		int max = 0;
+		int i, j, k, sum;
+
+		st = new StringTokenizer(br.readLine());
+		for (i = 0; i < n; i++) {
+			card[i] = Integer.parseInt(st.nextToken());
+		}
+		
+		for (i = 0; i < n; i++) {
+			for (j = i + 1; j < n; j++) {
+				for (k = j + 1; k < n; k++) {
+					sum = card[i] + card[j] + card[k];
+					if (sum > max && sum <= m) {
+						max = sum;
+					}
+				}
+			}
+		}
+		
+		
+		// print
+		System.out.println(max);
+	}
+	
+	public void sol_1259() throws Exception {
+		// ready
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringBuilder sb = new StringBuilder();
+		StringBuffer sf;
+		
+		// scan, cal
+		String str, compare;
+		
+		while (!(str = br.readLine()).equals("0")) {
+			sf = new StringBuffer(str);
+			compare = sf.reverse().toString();
+			if (str.equals(compare))	sb.append("yes\n");
+			else						sb.append("no\n");
+		}
+		
+		// print
+		System.out.println(sb);
+	}
+	
+	public void sol_11050() throws Exception {
+		// ready
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringBuilder sb = new StringBuilder();
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		
+		// scan, cal
+		int i, npec = 1, kpec = 1;
+		int n = Integer.parseInt(st.nextToken());
+		int k = Integer.parseInt(st.nextToken());
+		int count = k;
+		
+		for ( i = 0; i < count; i++, n--, k--) {
+			npec *= n;
+			kpec *= k;
+		}
+		
+		// print
+		System.out.println(npec/kpec);
+	}	
+	
+	public void sol_2164() throws Exception {
+		// ready
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringBuilder sb = new StringBuilder();
+		
+		// scan
+		int n = Integer.parseInt(br.readLine());
+		
+		// cal
+		Queue<Integer> q = new LinkedList<Integer>();
+		
+		for (int i = 0; i < n; i++) {
+			q.add(i+1);
+		}
+		
+		if (n > 2) {
+			do {
+				q.poll();
+				q.add(q.poll());
+			} while (q.size() > 2);
+			q.poll();
+		} else if (n == 2) {
+			q.poll();
+		}
+		
+		// print
+		System.out.println(q.poll());
+	}
+
+	public void sol_1018() throws Exception {
+		// ready
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringBuilder sb = new StringBuilder();
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		
+		// scan
+		int n = Integer.parseInt(st.nextToken());
+		int m = Integer.parseInt(st.nextToken());
+		
+		// cal
+		int i, j;
+		String str;
+		char[][] map = new char[n][m];
+		
+		// map 등록
+		for (i = 0; i < n; i++) {
+			str = br.readLine();
+			for (j = 0; j < m; j++) {
+				map[i][j] = str.charAt(j);
+			}
+		}
+		
+		char start;
+		int a, b, index;
+		int min = n * m;
+		int count = 0, count1 = 0, count2 = 0;
+		for (i = 0; i <= n - 8; i++) {
+			for (j = 0; j <= m - 8; j++) {
+				count1 = 0;
+				count2 = 0;
+				start = map[i][j];
+				for (a = i; a < i + 8; a++) {
+					for (b = j; b < j + 8; b++) {
+						index = (a - i) + (b - j);
+						if (index % 2 == 0) {
+							if (map[a][b] != start)	count1++;
+						} else {
+							if (map[a][b] == start)	count1++;
+						}
+					}
+					for (b = j; b < j + 8; b++) {
+						index = (a - i) + (b - j);
+						if (index % 2 == 0) {
+							if (map[a][b] == start)	count2++;
+						} else {
+							if (map[a][b] != start)	count2++;
+						}
+					}
+					count = (count1 > count2) ? count2 : count1;
+				}
+				if (min > count)	min = count;
+			}
+		}
+		
+		// print
+		System.out.println(min);
+	}
+	
 	public static void main(String[] args) throws Exception{
-		new Main().sol_4153();
+		new Main().sol_1018();
 	}
 }
