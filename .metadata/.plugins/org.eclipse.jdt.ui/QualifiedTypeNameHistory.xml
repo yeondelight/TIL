@@ -26,6 +26,8 @@
     <fullyQualifiedTypeName name="java.util.List"/>
     <fullyQualifiedTypeName name="java.util.Vector"/>
     <fullyQualifiedTypeName name="java.util.LinkedHashSet"/>
-    <fullyQualifiedTypeName name="java.math.BigInteger"/>
     <fullyQualifiedTypeName name="java.util.Map.Entry"/>
+    <fullyQualifiedTypeName name="java.math.BigInteger"/>
+    <fullyQualifiedTypeName name="java.math.BigDecimal"/>
+    <fullyQualifiedTypeName name="java.math.RoundingMode"/>
 </qualifiedTypeNameHistroy>
