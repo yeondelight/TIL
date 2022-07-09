@@ -85,25 +85,7 @@ public class Main {
 		System.out.println(safeArea);
 	}
 	
-	public void sol_16236() throws Exception {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		int N = Integer.parseInt(br.readLine());
-		int[][] map = new int[N][N];
-		
-		int x, y;
-		for (int i = 0; i < N; i++) {
-			StringTokenizer st = new StringTokenizer(br.readLine());
-			for (int j = 0; j < N; j++) {
-				map[i][j] = Integer.parseInt(st.nextToken());
-				if (map[i][j] == 9) {
-					x = i;
-					y = j;
-				}
-			}
-		}
-	}
-	
 	public static void main(String[] args) throws Exception {
-		new Main().sol_16236();
+		new Main().sol_14052();
 	}
 }
