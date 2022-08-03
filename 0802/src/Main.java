@@ -75,7 +75,7 @@ public class Main {
 		int case2 = dist[0][V2] + dist[2][V1] + dist[1][N];
 		int res = case1 < case2 ? case1 : case2;
 		
-		if (res > MAX)	System.out.println(-1);
+		if (res >= MAX)	System.out.println(-1);
 		else			System.out.println(res);
 	}
 	
