@@ -61,7 +61,7 @@ public class Main {
 		
 		if (cost > k)	System.out.println("Oh no");
 		else			System.out.println(cost);
-		
+		i
 	}
 	
 	public static void main(String[] args) throws Exception {
