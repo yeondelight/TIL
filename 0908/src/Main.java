@@ -1,7 +1,6 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.Deque;
-import java.util.LinkedList;
+import java.util.Stack;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -15,24 +14,24 @@ public class Main {
 		
 		int count = 0;
 		String str = br.readLine();
-		Deque<Integer> d = new LinkedList<>();
+		Stack<Integer> s = new Stack<>();
 		for (int i = 0; i < N; i++) {
 			int num = str.charAt(i) - '0';
-			while (!d.isEmpty() && count < K && d.peekLast() < num) {
-				d.pollLast();
+			while (!s.isEmpty() && count < K && s.peek() < num) {
+				s.pop();
 				count++;
 			}
-			d.offerLast(num);
+			s.push(num);
 		}
 		
 		// 만약 위의 과정에서 K개를 다 지우지 못한 경우 뒷부분 자르기
 		for (; count < K; count++) {
-			d.pollLast();
+			s.pop();
 		}
 		
 		// 출력
 		StringBuilder sb = new StringBuilder();
-		for (int num : d) {
+		for (int num : s) {
 			sb.append(num);
 		}
 		
