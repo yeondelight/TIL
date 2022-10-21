@@ -292,7 +292,7 @@ public class Main {
 	}
 	
 	public static void main (String [] args) throws Exception{
-		new Main().sol_1676();
+		new Main().sol_1874();
 	}
 
 }
