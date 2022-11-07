@@ -29,7 +29,26 @@ public class Main {
 		System.out.println(sum+1);
 	}
 	
+	public void sol_1789() throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		long S = Long.parseLong(br.readLine());
+		
+		// 1부터 n까지의 누적합은 n(n+1)/2.
+		// 즉, 2*누적합 = n(n+1).
+		// n(n+1)의 값이 2*S보다 처음으로 작아지는 때가 답.
+		long cmp = 2*S;
+		long n = (long)Math.sqrt(cmp);
+		
+		long val = n*(n+1);
+		while (val > cmp) {
+			n -= 1;
+			val = n*(n+1);
+		}
+		
+		System.out.println(n);
+	}
+	
 	public static void main(String[] args) throws Exception {
-		new Main().sol_2437();
+		new Main().sol_1789();
 	}
 }
