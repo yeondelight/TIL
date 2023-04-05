@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.StringTokenizer;
@@ -356,7 +357,264 @@ public class Main {
 		System.out.println(maxDistance);
 	}
 	
+	public void sol_24444() throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		
+		int N = Integer.parseInt(st.nextToken());
+		int M = Integer.parseInt(st.nextToken());
+		int R = Integer.parseInt(st.nextToken());
+		
+		// add vertex
+		ArrayList<ArrayList<Integer>> g = new ArrayList<>();
+		for (int i = 0; i <= N; i++) {
+			g.add(new ArrayList<Integer>());
+		}
+		
+		// get edges
+		for (int i = 0; i < M; i++) {
+			StringTokenizer stEdge = new StringTokenizer(br.readLine());
+			int u = Integer.parseInt(stEdge.nextToken());
+			int v = Integer.parseInt(stEdge.nextToken());
+			g.get(u).add(v);
+			g.get(v).add(u);
+		}
+		
+		// sort
+		for (int i = 1; i <= N; i++) {
+			Collections.sort(g.get(i));
+		}
+		
+		
+		// BFS with print
+		int time = 1;
+		int[] order = new int[N+1];
+		
+		Queue<Integer> q = new LinkedList<>();
+		boolean[] visited = new boolean[N+1];
+		
+		q.offer(R);
+		visited[R] = true;
+		
+		while(!q.isEmpty()) {
+			int curr = q.poll();
+			order[curr] = time;
+			
+			ArrayList<Integer> nodes = g.get(curr);
+			
+			for (int n : nodes) {
+				if (!visited[n]) {
+					visited[n] = true;
+					q.offer(n);
+				}
+			}
+			
+			time++;
+		}
+		
+		
+		// print
+		StringBuilder sb = new StringBuilder();
+		for (int i = 1; i <= N; i++) {
+			sb.append(order[i]).append('\n');
+		}
+		
+		System.out.println(sb);
+	}
+	
+	public void sol_24445() throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		
+		int N = Integer.parseInt(st.nextToken());
+		int M = Integer.parseInt(st.nextToken());
+		int R = Integer.parseInt(st.nextToken());
+		
+		// add vertex
+		ArrayList<ArrayList<Integer>> g = new ArrayList<>();
+		for (int i = 0; i <= N; i++) {
+			g.add(new ArrayList<Integer>());
+		}
+		
+		// get edges
+		for (int i = 0; i < M; i++) {
+			StringTokenizer stEdge = new StringTokenizer(br.readLine());
+			int u = Integer.parseInt(stEdge.nextToken());
+			int v = Integer.parseInt(stEdge.nextToken());
+			g.get(u).add(v);
+			g.get(v).add(u);
+		}
+		
+		// sort
+		for (int i = 1; i <= N; i++) {
+			Collections.sort(g.get(i));
+			Collections.reverse(g.get(i));
+		}
+		
+		
+		// BFS with print
+		int time = 1;
+		int[] order = new int[N+1];
+		
+		Queue<Integer> q = new LinkedList<>();
+		boolean[] visited = new boolean[N+1];
+		
+		q.offer(R);
+		visited[R] = true;
+		
+		while(!q.isEmpty()) {
+			int curr = q.poll();
+			order[curr] = time;
+			
+			ArrayList<Integer> nodes = g.get(curr);
+			
+			for (int n : nodes) {
+				if (!visited[n]) {
+					visited[n] = true;
+					q.offer(n);
+				}
+			}
+			
+			time++;
+		}
+		
+		
+		// print
+		StringBuilder sb = new StringBuilder();
+		for (int i = 1; i <= N; i++) {
+			sb.append(order[i]).append('\n');
+		}
+		
+		System.out.println(sb);
+	}
+	
+	public void dfs_24479(int idx) {
+		order[idx] = time;
+		ArrayList<Integer> nodes = g.get(idx);
+		for (int n : nodes) {
+			if (!visit[n]) {
+				time++;
+				visit[n] = true;
+				dfs_24479(n);
+			}
+		}
+	}
+	
+	public void sol_24479() throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		
+		int N = Integer.parseInt(st.nextToken());
+		int M = Integer.parseInt(st.nextToken());
+		int R = Integer.parseInt(st.nextToken());
+		
+		// add vertex
+		g = new ArrayList<>();
+		for (int i = 0; i <= N; i++) {
+			g.add(new ArrayList<Integer>());
+		}
+		
+		// get edges
+		for (int i = 0; i < M; i++) {
+			StringTokenizer stEdge = new StringTokenizer(br.readLine());
+			int u = Integer.parseInt(stEdge.nextToken());
+			int v = Integer.parseInt(stEdge.nextToken());
+			g.get(u).add(v);
+			g.get(v).add(u);
+		}
+		
+		// sort
+		for (int i = 1; i <= N; i++) {
+			Collections.sort(g.get(i));
+		}
+		
+		
+		// DFS
+		order = new int[N+1];
+		visit = new boolean[N+1];
+		visit[R] = true;
+		
+		time = 1;
+		dfs_24479(R);
+		
+		// print
+		StringBuilder sb = new StringBuilder();
+		for (int i = 1; i <= N; i++) {
+			sb.append(order[i]).append('\n');
+		}
+		
+		System.out.println(sb);
+		
+	}
+	
+	public static ArrayList<ArrayList<Integer>> g;
+	
+	public static boolean[] visit;
+	public static int[] order;
+	
+	public static int time;
+	
+	public void dfs_24480(int idx) {
+		order[idx] = time;
+		ArrayList<Integer> nodes = g.get(idx);
+		for (int n : nodes) {
+			if (!visit[n]) {
+				time++;
+				visit[n] = true;
+				dfs_24480(n);
+			}
+		}
+	}
+	
+	public void sol_24480() throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		
+		int N = Integer.parseInt(st.nextToken());
+		int M = Integer.parseInt(st.nextToken());
+		int R = Integer.parseInt(st.nextToken());
+		
+		// add vertex
+		g = new ArrayList<>();
+		for (int i = 0; i <= N; i++) {
+			g.add(new ArrayList<Integer>());
+		}
+		
+		// get edges
+		for (int i = 0; i < M; i++) {
+			StringTokenizer stEdge = new StringTokenizer(br.readLine());
+			int u = Integer.parseInt(stEdge.nextToken());
+			int v = Integer.parseInt(stEdge.nextToken());
+			g.get(u).add(v);
+			g.get(v).add(u);
+		}
+		
+		// sort
+		for (int i = 1; i <= N; i++) {
+			Collections.sort(g.get(i));
+			Collections.reverse(g.get(i));
+		}
+		
+		
+		// DFS
+		order = new int[N+1];
+		visit = new boolean[N+1];
+		visit[R] = true;
+		
+		time = 1;
+		dfs_24480(R);
+		
+		// print
+		StringBuilder sb = new StringBuilder();
+		for (int i = 1; i <= N; i++) {
+			sb.append(order[i]).append('\n');
+		}
+		
+		System.out.println(sb);
+		
+	}
+	
 	public static void main(String[] args) throws Exception {
-		new Main().sol_17086();
+		new Main().sol_24480();
 	}
 }
