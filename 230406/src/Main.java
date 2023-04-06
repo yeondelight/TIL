@@ -1,6 +1,6 @@
 
 public class Main {
 	public static void main(String[] args) throws Exception {
-		new SOL20055().run();
+		new SOL21610().run();
 	}
 }
