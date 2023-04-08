@@ -1,18 +1,29 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.Deque;
+import java.util.LinkedList;
 import java.util.StringTokenizer;
+
+class Point {
+	int y;
+	int x;
+	public Point(int y, int x) {
+		this.y = y;
+		this.x = x;
+	}
+}
 
 class SOL3190 {
 	
 	public int N;
 	public boolean[][] appleMap;
-	public boolean[][] snakeMap;
 	public char[] timeTranslate;
+	
+	public boolean[][] snakeMap;
+	public Deque<Point> snakeDeque;
 
 	public int time;	// 게임 시간
 	public int direction = 0;	// 뱀 머리 방향
-	public int startY, startX;	// 뱀의 머리 위치
-	public int endY, endX;		// 뱀의 꼬리 위치
 	
 	public static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	
@@ -27,6 +38,7 @@ class SOL3190 {
 		N = Integer.parseInt(br.readLine());
 		appleMap = new boolean[N+1][N+1];
 		snakeMap = new boolean[N+1][N+1];
+		snakeDeque = new LinkedList<Point>();
 		
 		int K = Integer.parseInt(br.readLine());
 		for (int k = 0; k < K; k++) {
@@ -48,14 +60,17 @@ class SOL3190 {
 	}
 	
 	public void solution() {
-		startY = startX = endY = endX = 1;
-		for (time = 0; time < MAX; time++) {
+		// init snake
+		snakeDeque.offer(new Point(1, 1));
+		snakeMap[1][1] = true;
+		
+		for (time = 0; time <= MAX; time++) {
 			
 			// 0. 방향 변환 정보를 확인한다.
 			if (timeTranslate[time] == 'L') {
 				direction = (direction + 1) % 4;
 			}
-			if (timeTranslate[time] == 'R') {
+			if (timeTranslate[time] == 'D') {
 				direction = (direction + 3) % 4;
 			}
 			
@@ -64,17 +79,20 @@ class SOL3190 {
 				break;
 			}
 			
+			Point head = snakeDeque.peekLast();	// 머리 칸 받아오기
+			
 			// 2. 사과에 따라 행동을 달리한다.
-			if (appleMap[startY][startX]) {	// 만약 이동한 칸에 사과가 있다면
-				appleMap[startY][startX] = false;	// 사과가 없어지고 꼬리는 안움직임
+			if (appleMap[head.y][head.x]) {	// 만약 이동한 칸에 사과가 있다면
+				appleMap[head.y][head.x] = false;	// 사과가 없어지고 꼬리는 안움직임
 			} else {								// 이동한 칸에 사과가 없다면
-				snakeMap[endY][endX] = false;		// 몸 길이를 줄여 꼬리 칸을 비운다.
+				Point tail = snakeDeque.pollFirst();// 뱀 꼬리 1 감소
+				snakeMap[tail.y][tail.x] = false;	// 꼬리 감소 확인
 			}
 		}
 	}
 	
 	public void print() {
-		System.out.println(time);
+		System.out.println(time+1);
 	}
 	
 	public void run() throws Exception {
@@ -85,14 +103,14 @@ class SOL3190 {
 	
 	// 머리를 다음 칸에 위치시킨다.
 	public boolean strengthSnake() {
-		int ny = startY + dy[direction];
-		int nx = startX + dx[direction];
+		Point p = snakeDeque.peekLast();	// 머리 받아오기
+		int ny = p.y + dy[direction];
+		int nx = p.x + dx[direction];
 		
 		if (0 < ny && ny <= N && 0 < nx && nx <= N) {	// 범위 확인
 			if (!snakeMap[ny][nx]) {					// 나 자신과 부딪히는지 확인
 				snakeMap[ny][nx] = true;
-				startY = ny;
-				startX = nx;
+				snakeDeque.offerLast(new Point(ny, nx));
 				return true;
 			}
 		}
